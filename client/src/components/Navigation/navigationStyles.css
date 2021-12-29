@@ -1,0 +1,21 @@
+.nav-link {
+  font-size: 1.2rem;
+  color: whitesmoke;
+  text-decoration: none;
+  padding-right: 5em;
+  height: 1em;
+}
+
+.nav-link::after {
+  display: block;
+  content: "";
+  width: 0%;
+  height: 0.2em;
+  background-color: tomato;
+  margin: auto;
+  transition: 1s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}

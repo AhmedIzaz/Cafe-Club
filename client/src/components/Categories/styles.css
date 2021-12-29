@@ -1,0 +1,34 @@
+/* ===================================== */
+/* ===================================== */
+/* ===================================== */
+/* ===================================== */
+.categories {
+  background-color: rgb(255, 237, 237);
+  width: 90%;
+  padding-top: 2em;
+  margin: auto;
+  text-align: center;
+  border-radius: 1.5em;
+}
+.category_list {
+  margin-bottom: 1em;
+}
+.category {
+  display: inline-block;
+  width: 20em;
+  margin: 1em;
+  text-decoration: none;
+}
+
+.category:hover {
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.308);
+  transform: translate(0, -1em);
+  transition: 1s;
+}
+.category .category-image {
+  padding-top: 60%;
+}
+/* ===================================== */
+/* ===================================== */
+/* ===================================== */
+/* ===================================== */
