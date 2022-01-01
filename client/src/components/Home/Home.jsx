@@ -11,14 +11,25 @@ function Home() {
       <div className="header">
         <Navigation />
         <div className="text-box">
+<<<<<<< HEAD
           <h1 className="text-box-title">The Cafe Club</h1>
+=======
+          <Typography variant="h1">The Cafe Club</Typography>
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
           <Typography gutterBottom variant="subtitle1">
             Best Pizza in town!
           </Typography>
           <br />
+<<<<<<< HEAD
           <Link to="/about">Learn More..</Link>
         </div>
       </div>
+=======
+          <Link to="/">Learn More..</Link>
+        </div>
+      </div>
+
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
       <Categories />
     </div>
   );

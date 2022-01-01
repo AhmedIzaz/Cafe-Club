@@ -1,5 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import React from "react";
+<<<<<<< HEAD
 import { Link, useLocation } from "react-router-dom";
 import categories from "../../demodata/democategories";
 import Navigation from "../Navigation/Navigation";
@@ -15,6 +16,16 @@ function Categories() {
           <br />
         </>
       )}
+=======
+import { Link } from "react-router-dom";
+
+import categories from "../../demodata/democategories";
+import "./styles.css";
+function Categories() {
+  return (
+    <>
+      <br />
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
       <div className="categories">
         <Typography gutterBottom variant="h3">
           Food Categories We Have!

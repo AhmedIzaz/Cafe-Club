@@ -11,7 +11,11 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
+<<<<<<< HEAD
 import { Link, useLocation } from "react-router-dom";
+=======
+import { Link } from "react-router-dom";
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
 import "./navigationStyles.css";
 const pages = ["Home", "Categories", "About"];
 
@@ -25,6 +29,7 @@ const Navigation = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+<<<<<<< HEAD
   const location = useLocation();
   return (
     <AppBar
@@ -33,6 +38,11 @@ const Navigation = () => {
       }}
       position="static"
     >
+=======
+
+  return (
+    <AppBar style={{ backgroundColor: "transparent" }} position="static">
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
       <Container maxWidth="xl">
         <Toolbar style={{ alignItems: "unset" }} disableGutters>
           <Box sx={{ flexGrow: 1 }}>
@@ -54,7 +64,11 @@ const Navigation = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+<<<<<<< HEAD
               style={{ height: "2em", marginTop: "2em" }}
+=======
+              style={{ top: "-20%" }}
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
             >
               <MenuIcon />
             </IconButton>

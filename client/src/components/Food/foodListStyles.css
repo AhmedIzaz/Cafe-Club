@@ -43,6 +43,7 @@
 .food-item-actions {
   justify-content: center;
 }
+<<<<<<< HEAD
 
 .for-no-food {
   text-align: center;
@@ -53,3 +54,5 @@
   transform: translate(-50%, -50%);
   color: rgb(107, 107, 107);
 }
+=======
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83

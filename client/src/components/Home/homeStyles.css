@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 .home-container {
   position: relative;
 }
 
+=======
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
 .home-container > .header {
   color: white;
   min-height: 100vh;
@@ -22,6 +25,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+<<<<<<< HEAD
 .text-box-title {
   font-size: 5rem;
 }
@@ -30,6 +34,9 @@
     font-size: 2rem;
   }
 }
+=======
+
+>>>>>>> e71d92572079cd317945651a1ef2a69705723a83
 .text-box > a {
   text-decoration: none;
   color: whitesmoke;
