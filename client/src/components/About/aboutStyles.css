@@ -1,0 +1,28 @@
+.about-page-container {
+  font-size: 1.5rem;
+  margin: auto;
+  width: 85%;
+  min-height: 70vh;
+  padding: 2em;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.486), rgba(0, 0, 0, 0.5)),
+    url(../images/rooftop.jpg);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  border-radius: 1.5em;
+}
+@media screen and (max-width: 700px) {
+  .about-page-container {
+    font-size: 1rem;
+    width: 80%;
+    min-height: 60vh;
+  }
+}
+
+.about-page-container > h3 {
+  width: fit-content;
+  margin: auto;
+  padding-bottom: 2em;
+}

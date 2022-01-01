@@ -1,0 +1,27 @@
+.food-description-page {
+  padding-top: 2em;
+  min-height: 70vh;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  background-color: rgba(250, 235, 215, 0.568);
+  border-radius: 1em;
+}
+@media screen and (max-width: 600px) {
+  .food-description-page {
+    width: 90%;
+  }
+}
+
+.food-description-page-image-container {
+  width: 90%;
+  margin: auto;
+}
+
+.food-description-page-image {
+  width: 100%;
+}
+
+.food-description-page-button {
+  margin-top: 2em;
+}
