@@ -4,10 +4,9 @@ import { useParams } from "react-router-dom";
 import demofood from "../../../demodata/demofood";
 import { Grid, IconButton, Tooltip, Typography } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-<<<<<<< HEAD
+
 import Navigation from "../../Navigation/Navigation";
-=======
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
+
 function FoodDescription() {
   const { foodId } = useParams();
   const [food, setFood] = useState({});
@@ -16,10 +15,8 @@ function FoodDescription() {
   }, []);
   return (
     <>
-<<<<<<< HEAD
       <Navigation />
-=======
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
+
       <br />
       <br />
       <div className="food-description-page">

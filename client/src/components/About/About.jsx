@@ -1,17 +1,12 @@
 import React from "react";
 import "./aboutStyles.css";
-<<<<<<< HEAD
+
 import Navigation from "../Navigation/Navigation";
 function About() {
   return (
     <>
       <Navigation />
-=======
-import { useLocation, useNavigate } from "react-router-dom";
-function About() {
-  return (
-    <>
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
+
       <br />
       <br />
       <div className="about-page-container">

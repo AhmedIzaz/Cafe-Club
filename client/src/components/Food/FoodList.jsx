@@ -12,10 +12,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import demofood from "../../demodata/demofood";
 import "./foodListStyles.css";
-<<<<<<< HEAD
+
 import Navigation from "../Navigation/Navigation";
-=======
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
+
 function FoodList() {
   const { categoryId, categoryName } = useParams();
   const [foods, setFoods] = useState([]);
@@ -28,10 +27,8 @@ function FoodList() {
   }, []);
   return (
     <>
-<<<<<<< HEAD
       <Navigation />
-=======
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
+
       <br />
       <br />
       <div className="food-list-page">
@@ -76,22 +73,7 @@ function FoodList() {
             </Grid>
           </>
         ) : (
-<<<<<<< HEAD
           <Typography variant="h3" className="for-no-food">
-=======
-          <Typography
-            style={{
-              textAlign: "center",
-              width: "fit-content",
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-            variant="h1"
-            color="textSecondary"
-          >
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
             There is no food for this category..Sorry!
           </Typography>
         )}

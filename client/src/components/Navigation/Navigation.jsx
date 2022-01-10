@@ -11,26 +11,26 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
-<<<<<<< HEAD
 import { Link, useLocation } from "react-router-dom";
-=======
-import { Link } from "react-router-dom";
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
 import "./navigationStyles.css";
-const pages = ["Home", "Categories", "About"];
-
+import { useStateValue } from "../../StateProvider/StateContext";
 const Navigation = () => {
+  const [state] = useStateValue();
+  const location = useLocation();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-<<<<<<< HEAD
-  const location = useLocation();
+  const pages = [
+    "Home",
+    "Categories",
+    "About",
+    state.user ? "Logout" : "Login",
+  ];
+
   return (
     <AppBar
       style={{
@@ -38,11 +38,6 @@ const Navigation = () => {
       }}
       position="static"
     >
-=======
-
-  return (
-    <AppBar style={{ backgroundColor: "transparent" }} position="static">
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
       <Container maxWidth="xl">
         <Toolbar style={{ alignItems: "unset" }} disableGutters>
           <Box sx={{ flexGrow: 1 }}>
@@ -64,11 +59,7 @@ const Navigation = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
-<<<<<<< HEAD
               style={{ height: "2em", marginTop: "2em" }}
-=======
-              style={{ top: "-20%" }}
->>>>>>> e71d92572079cd317945651a1ef2a69705723a83
             >
               <MenuIcon />
             </IconButton>
@@ -105,7 +96,7 @@ const Navigation = () => {
           <Box
             style={{
               paddingRight: "10em",
-              width: "20em",
+              width: "30em",
               marginTop: "2em",
             }}
             sx={{

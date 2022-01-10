@@ -1,5 +1,6 @@
 export const InitialState = {
   user: null,
+  token: null,
 };
 
 export const Reducer = (state, action) => {
@@ -13,6 +14,16 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         user: null,
+      };
+    case "ADD_TOKEN":
+      return {
+        ...state,
+        token: action.token,
+      };
+    case "REMOVE_TOKEN":
+      return {
+        ...state,
+        token: null,
       };
     default:
       return state;
