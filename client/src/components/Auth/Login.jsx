@@ -7,6 +7,7 @@ import { Button, TextField, Tooltip, Typography } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import "./authStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
+import useMethods from "../../StateProvider/useMethods";
 const schema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().min(8).max(32).required(),
@@ -15,12 +16,13 @@ const schema = Yup.object({
 function Login() {
   const [state] = useStateValue();
   const navigate = useNavigate();
+  const { login } = useMethods();
   const {
     formState: { errors },
     control,
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema) });
-  const onFormSubmit = (data) => console.log(data);
+  const onFormSubmit = (data) => login(data);
 
   // =====================================
   // =====================================

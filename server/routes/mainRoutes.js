@@ -1,5 +1,6 @@
 import category_routes from "./categoryRoutes.js";
 import food_routes from "./foodRoutes.js";
+import authRoutes from "./authRoutes.js";
 const routers = [
   {
     path: "/categories",
@@ -12,7 +13,7 @@ const routers = [
 
   {
     path: "/auth",
-    handler: () => {},
+    handler: authRoutes,
   },
 ];
 

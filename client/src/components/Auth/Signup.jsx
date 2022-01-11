@@ -7,9 +7,11 @@ import { Button, TextField, Tooltip, Typography } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import "./authStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
+import useMethods from "../../StateProvider/useMethods";
 const schema = Yup.object({
   username: Yup.string().min(3).max(20).required(),
   email: Yup.string().email().required(),
+  number: Yup.string().min(5).max(15).required(),
   password: Yup.string().min(8).max(32).required(),
   confirm_password: Yup.string().oneOf([Yup.ref("password"), null]),
 });
@@ -17,6 +19,7 @@ const schema = Yup.object({
 function Signup() {
   const [state] = useStateValue();
   const navigate = useNavigate();
+  const { signup } = useMethods();
   const {
     formState: { errors },
     control,
@@ -31,7 +34,7 @@ function Signup() {
   // ================================
   // ================================
 
-  const onFormSubmit = (data) => console.log(data);
+  const onFormSubmit = (data) => signup(data);
   return (
     <>
       <Navigation />
@@ -77,6 +80,26 @@ function Signup() {
           <Typography gutterBottom variant="body2" color="secondary">
             {errors.email?.message}
           </Typography>
+
+          <Controller
+            control={control}
+            name="number"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="number"
+                placeholder="number"
+                type="text"
+                size="small"
+                variant="outlined"
+              />
+            )}
+          />
+
+          <Typography gutterBottom variant="body2" color="secondary">
+            {errors.number?.message}
+          </Typography>
+
           <Controller
             control={control}
             name="password"

@@ -8,6 +8,7 @@ import useMiddlewares from "./middlewares/mainMiddlewares.js";
 dotenv.config();
 // =========================================
 // =========================================
+
 useMiddlewares(app);
 mainRoutes(app);
 app.use((req, res, next) => {
@@ -22,7 +23,7 @@ app.use((error, req, res, next) => {
 // =========================================
 
 mongoose
-  .connect(process.env.DB_URL, { useUnifiedTopology: true })
+  .connect(process.env.DB_URL)
   .then(() => {
     app.listen(port, () => console.log(`server is running on ${port}`));
   })

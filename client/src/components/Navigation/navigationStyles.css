@@ -19,3 +19,8 @@
 .nav-link:hover::after {
   width: 100%;
 }
+
+.box-menu-item {
+  text-decoration: none;
+  color: black;
+}
