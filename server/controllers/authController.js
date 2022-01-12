@@ -38,7 +38,7 @@ export const login = async (req, res, next) => {
         .json({ message: "password doesn't matched!" })
         .end();
     const token = await jwt.sign({ email, user_id: user._id }, "secret", {
-      expiresIn: "1m",
+      expiresIn: "1d",
     });
     return res.json({ user, token }).end();
   } catch (error) {

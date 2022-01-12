@@ -1,0 +1,36 @@
+.cart-container {
+  width: 90%;
+  margin: auto;
+}
+.cart {
+  width: 90%;
+  margin: auto;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: 0.05em 0.05em 0.1em 0.01em rgba(0, 0, 0, 0.774);
+  transition: 0.5s;
+  background-color: rgb(253, 255, 253);
+}
+
+.cart:hover {
+  box-shadow: 0 0 0.3em 0.01em rgba(0, 0, 0, 0.774);
+}
+
+.cart-image {
+  border-radius: 0.5em;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.cart-actions {
+  padding-top: 0.5em;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cart-action-button {
+  width: 1.5em;
+  height: 1.5em;
+}

@@ -11,6 +11,7 @@ import { useStateValue } from "./StateProvider/StateContext";
 import { isExpired } from "react-jwt";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
+import Cart from "./components/Cart/Cart";
 function App() {
   const [state, dispatch] = useStateValue();
   // ==========================================
@@ -47,6 +48,7 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
       <Footer />

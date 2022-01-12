@@ -3,11 +3,11 @@ import food_routes from "./foodRoutes.js";
 import authRoutes from "./authRoutes.js";
 const routers = [
   {
-    path: "/categories",
+    path: "/category",
     handler: category_routes,
   },
   {
-    path: "/foods",
+    path: "/food",
     handler: food_routes,
   },
 

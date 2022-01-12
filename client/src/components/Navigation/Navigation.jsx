@@ -10,8 +10,15 @@ import {
   Avatar,
   MenuItem,
   Typography,
+  Badge,
+  Tooltip,
 } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import {
+  EmojiFoodBeverage,
+  LocalDiningOutlined,
+  Menu as MenuIcon,
+  ShoppingCart,
+} from "@material-ui/icons";
 import { Link, useLocation } from "react-router-dom";
 import "./navigationStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
@@ -109,6 +116,15 @@ const Navigation = () => {
                   </Link>
                 )}
               </MenuItem>
+              {state.user && state.token && (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link className="box-menu-item" to="/cart">
+                    <Badge badgeContent={state.carts.length} color="secondary">
+                      Food Carts
+                    </Badge>
+                  </Link>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
           <Box
@@ -144,6 +160,24 @@ const Navigation = () => {
               <Link className="nav-link" to="/login">
                 Login
               </Link>
+            )}
+
+            {state.user && state.token && (
+              <Tooltip title="Click to see your food cart">
+                <IconButton
+                  style={{ width: "1em", height: "1.5em" }}
+                  className="nav-link"
+                >
+                  <Badge
+                    component={Link}
+                    to="/cart"
+                    badgeContent={state.carts.length}
+                    color="secondary"
+                  >
+                    <LocalDiningOutlined style={{ color: "white" }} />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
             )}
           </Box>
         </Toolbar>

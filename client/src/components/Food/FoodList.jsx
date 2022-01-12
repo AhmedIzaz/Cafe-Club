@@ -12,10 +12,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import demofood from "../../demodata/demofood";
 import "./foodListStyles.css";
-
 import Navigation from "../Navigation/Navigation";
+import { useStateValue } from "../../StateProvider/StateContext";
+import useMethods from "../../StateProvider/useMethods";
 
 function FoodList() {
+  const [state] = useStateValue();
+  const { add_to_cart } = useMethods();
   const { categoryId, categoryName } = useParams();
   const [foods, setFoods] = useState([]);
   useEffect(() => {
@@ -60,13 +63,15 @@ function FoodList() {
                       </Typography>
                     </CardContent>
 
-                    <CardActions className="food-item-actions">
-                      <Tooltip title="Add to Order Cart!">
-                        <IconButton>
-                          <Add />
-                        </IconButton>
-                      </Tooltip>
-                    </CardActions>
+                    {state.user && state.token && (
+                      <CardActions className="food-item-actions">
+                        <Tooltip title="Add to Order Cart!">
+                          <IconButton onClick={() => add_to_cart(food)}>
+                            <Add />
+                          </IconButton>
+                        </Tooltip>
+                      </CardActions>
+                    )}
                   </Card>
                 </Grid>
               ))}

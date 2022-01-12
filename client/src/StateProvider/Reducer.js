@@ -1,6 +1,7 @@
 export const InitialState = {
   user: null,
   token: null,
+  carts: [],
 };
 
 export const Reducer = (state, action) => {
@@ -24,6 +25,21 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         token: null,
+      };
+    case "ADD_TO_CARTS":
+      return {
+        ...state,
+        carts: [...state.carts, action.food],
+      };
+    case "REMOVE_FROM_CARTS":
+      return {
+        ...state,
+        carts: [...state.carts.filter((cart) => cart._id != action.cart._id)],
+      };
+    case "DELETE_CARTS":
+      return {
+        ...state,
+        carts: [],
       };
     default:
       return state;
