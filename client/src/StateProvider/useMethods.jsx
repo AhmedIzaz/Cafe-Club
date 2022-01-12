@@ -4,6 +4,7 @@ import { useStateValue } from "./StateContext";
 
 function useMethods() {
   const auth_base_url = "http://localhost:8000/auth";
+  const cart_base_url = "http://localhost:8000/cart";
   const [state, dispatch] = useStateValue();
   const navigate = useNavigate();
   ////======================================
@@ -50,12 +51,73 @@ function useMethods() {
   const add_to_cart = (food) => {
     if (state.carts.filter((cart) => cart._id == food._id).length > 0)
       return alert("Food is already exist in your food cart!");
-    food.quantity = 1;
-    return dispatch({ type: "ADD_TO_CARTS", food });
+    axios
+      .post(`${cart_base_url}/create-cart`, {
+        food: food._id,
+        token: state.token,
+      })
+      .then((response) => {
+        if (response.data?.status == 200)
+          return dispatch({ type: "ADD_TO_CARTS", food });
+        return alert("can't add to cart! please try again letter!");
+      })
+      .catch((error) => alert(error.message));
   };
   ////======================================
   ////======================================
-  return { login, signup, logout, add_to_cart };
+  const change_quantity = (value, cart) => {
+    axios
+      .post(`${cart_base_url}/change-quantity`, {
+        value,
+        cart_id: cart._id,
+        token: state.token,
+      })
+      .then((response) => {
+        if (response.data.status == 200) {
+          const index = state.carts.indexOf(cart);
+          let carts = state.carts;
+          carts[index] = response.data.updated_cart;
+          return dispatch({ type: "CHANGE_CART_QUANTITY", carts });
+        }
+        return alert("Cart quantity doesn't update!Please try again!");
+      })
+      .catch((error) => alert(error.message));
+  };
+  ////======================================
+  ////======================================
+  const remove_cart = (cart_id) => {
+    axios
+      .post(`${cart_base_url}/remove-cart`, { cart_id, token: state.token })
+      .then((response) => {
+        if (response.data?.status == 200)
+          return dispatch({ type: "REMOVE_FROM_CARTS", cart_id });
+        return alert("Cart  doesn't deleted ! Please try again!");
+      })
+      .catch((error) => alert(error.message));
+  };
+  ////======================================
+  ////======================================
+  const delete_user_carts = () => {
+    axios
+      .post(`${cart_base_url}/delete-user-carts`, {
+        token: state.token,
+        user_id: state.user._id,
+      })
+      .then((response) => {
+        if (response.data?.status == 200) return navigate("/");
+        return alert("Can't delete carts.. Please try again letter!");
+      })
+      .catch();
+  };
+  return {
+    login,
+    signup,
+    logout,
+    add_to_cart,
+    change_quantity,
+    remove_cart,
+    delete_user_carts,
+  };
 }
 
 export default useMethods;

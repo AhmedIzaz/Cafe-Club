@@ -1,14 +1,17 @@
 import { Grid, IconButton, Typography } from "@material-ui/core";
+import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import demofood from "../../demodata/demofood";
 import { useStateValue } from "../../StateProvider/StateContext";
+import useMethods from "../../StateProvider/useMethods";
 import Navigation from "../Navigation/Navigation";
 import "./cartStyles.css";
 function Cart() {
   const [cart, setCart] = useState(null);
   const navigate = useNavigate();
   const [state] = useStateValue();
+  const { change_quantity, remove_cart } = useMethods();
   useEffect(() => {
     if (state.carts.length < 1) return navigate("/");
   });
@@ -30,11 +33,26 @@ function Cart() {
                   <img className="cart-image" src={cart.image} />
                 </div>
                 <div className="cart-actions">
-                  <IconButton className="cart-action-button">+</IconButton>
-                  <Typography variant="body1" color="primary">
-                    {cart.quantity}
-                  </Typography>
-                  <IconButton className="cart-action-button">-</IconButton>
+                  <div>
+                    <IconButton
+                      onClick={() => change_quantity(cart.quantity + 1, cart)}
+                      className="cart-action-button"
+                    >
+                      +
+                    </IconButton>
+                    <Typography variant="body1" color="primary">
+                      {cart.quantity}
+                    </Typography>
+                    <IconButton
+                      onClick={() => change_quantity(cart.quantity - 1, cart)}
+                      className="cart-action-button"
+                    >
+                      -
+                    </IconButton>
+                  </div>
+                  <IconButton onClick={() => remove_cart(cart._id)}>
+                    <DeleteForeverOutlined />
+                  </IconButton>
                 </div>
               </div>
             </Grid>

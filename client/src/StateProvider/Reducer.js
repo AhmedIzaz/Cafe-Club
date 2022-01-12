@@ -31,10 +31,15 @@ export const Reducer = (state, action) => {
         ...state,
         carts: [...state.carts, action.food],
       };
+    case "CHANGE_CART_QUANTITY":
+      return {
+        ...state,
+        carts: action.carts,
+      };
     case "REMOVE_FROM_CARTS":
       return {
         ...state,
-        carts: [...state.carts.filter((cart) => cart._id != action.cart._id)],
+        carts: [...state.carts.filter((cart) => cart._id != action.cart_id)],
       };
     case "DELETE_CARTS":
       return {
