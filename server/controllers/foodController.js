@@ -3,6 +3,8 @@ import Food from "../models/Food.js";
 
 export const food_description = async (req, res, next) => {
   try {
+    const food = await Food.findOne({ _id: req.params._id });
+    return res.status(200).json({ food }).end();
   } catch (error) {
     return res.json({ error: error.message });
   }

@@ -16,9 +16,11 @@ function useMethods() {
       .then((response) => {
         if (!response.data.user || !response.data.token)
           return alert(response.data?.message || response.data?.error);
-        const { user, token } = response.data;
+        const { user, token, carts, orders } = response.data;
         dispatch({ type: "ADD_USER", user });
         dispatch({ type: "ADD_TOKEN", token });
+        dispatch({ type: "ADD_CARTS", carts });
+        dispatch({ type: "ADD_ORDERS", orders });
         sessionStorage.setItem("user", JSON.stringify(user));
         sessionStorage.setItem("token", token);
         return navigate("/");
@@ -43,8 +45,7 @@ function useMethods() {
   ////======================================
   ////======================================
   const logout = () => {
-    dispatch({ type: "REMOVE_USER" });
-    dispatch({ type: "REMOVE_TOKEN" });
+    dispatch({ type: "DELETE_EVERYTHING" });
     return sessionStorage.clear();
   };
   ////======================================
@@ -61,6 +62,21 @@ function useMethods() {
         return;
       })
       .catch((error) => alert(error.message));
+  };
+  ////======================================
+  ////======================================
+  const get_carts_and_orders = (user, token) => {
+    axios
+      .post(`${auth_base_url}/get-carts-and-orders`, { token })
+      .then((response) => {
+        if (response.status !== 200) return alert(response.data.error);
+        dispatch({ type: "ADD_TOKEN", token });
+        dispatch({ type: "ADD_USER", user: JSON.parse(user) });
+        dispatch({ type: "ADD_CARTS", carts: response.data.carts });
+        dispatch({ type: "ADD_ORDERS", orders: response.data.orders });
+        return navigate(-1);
+      })
+      .catch((error) => alert(error));
   };
   ////======================================
   ////======================================
@@ -125,6 +141,7 @@ function useMethods() {
       .catch();
   };
   return {
+    get_carts_and_orders,
     get_category_list,
     login,
     signup,

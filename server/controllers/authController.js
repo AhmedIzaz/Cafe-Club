@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import Cart from "../models/Cart.js";
+import Order from "../models/Order.js";
 export const signup = async (req, res, next) => {
   try {
     const { name, email, password, number, image } = req.body;
@@ -40,8 +42,20 @@ export const login = async (req, res, next) => {
     const token = await jwt.sign({ email, user_id: user._id }, "secret", {
       expiresIn: "1d",
     });
-    return res.json({ user, token }).end();
+    const carts = await Cart.find({ user_id: user._id });
+    const orders = await Order.find({ user_id: user._id });
+    return res.json({ user, token, carts, orders }).end();
   } catch (error) {
     return res.json({ error: error.message });
+  }
+};
+
+export const get_carts_and_orders = async (req, res, next) => {
+  try {
+    const carts = await Cart.find({ user_id: req.user_id });
+    const orders = await Order.find({ user_id: req.user_id });
+    return res.status(200).json({ carts, orders }).end();
+  } catch (error) {
+    return res.status(404).json({ error: error.message }).end();
   }
 };

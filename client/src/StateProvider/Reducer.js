@@ -3,6 +3,7 @@ export const InitialState = {
   user: null,
   token: null,
   carts: [],
+  orders: [],
 };
 
 export const Reducer = (state, action) => {
@@ -32,6 +33,11 @@ export const Reducer = (state, action) => {
         ...state,
         token: null,
       };
+    case "ADD_CARTS":
+      return {
+        ...state,
+        carts: [...action.carts],
+      };
     case "ADD_TO_CARTS":
       return {
         ...state,
@@ -51,6 +57,24 @@ export const Reducer = (state, action) => {
       return {
         ...state,
         carts: [],
+      };
+    case "ADD_ORDERS":
+      return {
+        ...state,
+        orders: [...action.orders],
+      };
+    case "DELETE_ORDERS":
+      return {
+        ...state,
+        orders: [],
+      };
+    case "DELETE_EVERYTHING":
+      return {
+        ...state,
+        user: null,
+        token: null,
+        carts: [],
+        orders: [],
       };
     default:
       return state;

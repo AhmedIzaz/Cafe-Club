@@ -15,7 +15,7 @@ import Cart from "./components/Cart/Cart";
 import useMethods from "./StateProvider/useMethods";
 function App() {
   const [state, dispatch] = useStateValue();
-  const { get_category_list } = useMethods();
+  const { get_category_list, get_carts_and_orders } = useMethods();
   // ==========================================
   // ==========================================
   useEffect(() => {
@@ -23,12 +23,10 @@ function App() {
     let token = sessionStorage.getItem("token");
     let user = sessionStorage.getItem("user");
     if (token && !isExpired(token) && user) {
-      dispatch({ type: "ADD_TOKEN", token });
-      dispatch({ type: "ADD_USER", user: JSON.parse(user) });
+      get_carts_and_orders(user, token);
       return;
     }
-    dispatch({ type: "REMOVE_TOKEN" });
-    dispatch({ type: "REMOVE_USER" });
+    dispatch({ type: "DELETE_EVERYTHING" });
     return sessionStorage.clear();
   }, []);
   // ==========================================

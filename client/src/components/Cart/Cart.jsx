@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@material-ui/core";
+import { CardMedia, Grid, IconButton, Typography } from "@material-ui/core";
 import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -29,9 +29,8 @@ function Cart() {
                 <Typography align="center" variant="h6">
                   {cart.name}
                 </Typography>
-                <div className="cart-image-container">
-                  <img className="cart-image" src={cart.image} />
-                </div>
+                <CardMedia image={cart.image} className="cart-image" />
+
                 <div className="cart-actions">
                   <div className="cart-actions-left">
                     <IconButton
