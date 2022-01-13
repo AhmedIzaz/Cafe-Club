@@ -1,0 +1,12 @@
+import express from "express";
+import { remove_cart } from "../controllers/cartController.js";
+import { delete_user_carts } from "../controllers/cartController.js";
+import { create_cart } from "../controllers/cartController.js";
+const router = express.Router();
+import { change_quantity } from "../controllers/cartController.js";
+import { is_authenticate } from "../middlewares/authMiddleware.js";
+router.post("/change-quantity", is_authenticate, change_quantity);
+router.post("/create-cart", is_authenticate, create_cart);
+router.post("/remove-cart", is_authenticate, remove_cart);
+router.post("/delete-user-carts", is_authenticate, delete_user_carts);
+export default router;

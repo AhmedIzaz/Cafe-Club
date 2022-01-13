@@ -33,7 +33,7 @@ function Cart() {
                   <img className="cart-image" src={cart.image} />
                 </div>
                 <div className="cart-actions">
-                  <div>
+                  <div className="cart-actions-left">
                     <IconButton
                       onClick={() => change_quantity(cart.quantity + 1, cart)}
                       className="cart-action-button"

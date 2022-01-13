@@ -29,6 +29,12 @@
   justify-content: space-around;
   align-items: center;
 }
+.cart-actions-left {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
 .cart-action-button {
   width: 1.5em;

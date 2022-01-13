@@ -12,11 +12,14 @@ import { isExpired } from "react-jwt";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import Cart from "./components/Cart/Cart";
+import useMethods from "./StateProvider/useMethods";
 function App() {
   const [state, dispatch] = useStateValue();
+  const { get_category_list } = useMethods();
   // ==========================================
   // ==========================================
   useEffect(() => {
+    get_category_list();
     let token = sessionStorage.getItem("token");
     let user = sessionStorage.getItem("user");
     if (token && !isExpired(token) && user) {

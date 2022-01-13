@@ -1,4 +1,5 @@
 export const InitialState = {
+  categories: [],
   user: null,
   token: null,
   carts: [],
@@ -6,6 +7,11 @@ export const InitialState = {
 
 export const Reducer = (state, action) => {
   switch (action.type) {
+    case "ADD_CATEGORIES":
+      return {
+        ...state,
+        categories: action.categories,
+      };
     case "ADD_USER":
       return {
         ...state,

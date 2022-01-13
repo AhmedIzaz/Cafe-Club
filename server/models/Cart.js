@@ -3,14 +3,24 @@ import mongoose from "mongoose";
 const cartSchema = mongoose.Schema(
   {
     food_id: {
-      type: mongoose.Types.ObjectId,
-      ref: "food",
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
       required: true,
     },
     user_id: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
+    },
+    quantity: {
+      type: Number,
+      default: 1,
     },
   },
   { timestamps: false }

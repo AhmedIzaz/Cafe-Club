@@ -1,12 +1,13 @@
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import React from "react";
-
+import { useStateValue } from "../../StateProvider/StateContext";
 import { Link, useLocation } from "react-router-dom";
 import categories from "../../demodata/democategories";
 import Navigation from "../Navigation/Navigation";
 import "./styles.css";
 function Categories() {
   const location = useLocation();
+  const [state] = useStateValue();
   return (
     <>
       {location.pathname == "/categories" && (
@@ -24,7 +25,7 @@ function Categories() {
           Food Categories We Have!
         </Typography>
         <div className="category_list">
-          {categories.map((category, key) => (
+          {state.categories.map((category, key) => (
             <Card
               component={Link}
               to={`/food-list/${category._id}/${category.name}`}
