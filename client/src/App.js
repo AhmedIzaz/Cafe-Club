@@ -40,12 +40,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/categories" element={<Categories />} />
           <Route
-            path="/food-list/:categoryId/:categoryName"
+            path="/food-list/:category_id/:category_name"
             element={<FoodList />}
           />
           <Route path="/about" element={<About />} />
           <Route
-            path="/food-description/:foodId"
+            path="/food-description/:food_id"
             element={<FoodDescription />}
           />
 

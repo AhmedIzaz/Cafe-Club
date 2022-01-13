@@ -7,9 +7,7 @@
   padding: 0 1em;
   position: relative;
 }
-.food-item {
-  padding-top: 1em;
-}
+
 @media screen and (max-width: 600px) {
   .food-item {
     margin-left: 4em;
@@ -26,18 +24,18 @@
   padding: 1em 0;
   font-size: 2rem;
 }
-.food-item-image-container {
-  width: 90%;
-  margin: auto;
-}
-
-.food-item-image {
-  width: 100%;
+.food-list-image {
+  padding-top: 60%;
 }
 
 .food-item-description {
   text-align: center;
   text-decoration: none;
+}
+.food-list-item-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .food-item-actions {

@@ -2,6 +2,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Grid,
   IconButton,
   Tooltip,
@@ -10,23 +11,25 @@ import {
 import { Add } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import demofood from "../../demodata/demofood";
 import "./foodListStyles.css";
 import Navigation from "../Navigation/Navigation";
 import { useStateValue } from "../../StateProvider/StateContext";
 import useMethods from "../../StateProvider/useMethods";
+import axios from "axios";
 
 function FoodList() {
   const [state] = useStateValue();
   const { add_to_cart } = useMethods();
-  const { categoryId, categoryName } = useParams();
+  const { category_id, category_name } = useParams();
   const [foods, setFoods] = useState([]);
   useEffect(() => {
-    let food_list = [];
-    demofood.map((food) =>
-      food.category_id == categoryId ? food_list.push(food) : null
-    );
-    setFoods(food_list);
+    axios
+      .get(`http://localhost:8000/category/category-foods/${category_id}`)
+      .then((response) => {
+        if (response.status !== 200) return alert(response.data.error);
+        setFoods(response.data.foods);
+      })
+      .catch((error) => alert(error));
   }, []);
   return (
     <>
@@ -37,19 +40,12 @@ function FoodList() {
       <div className="food-list-page">
         {foods.length > 0 ? (
           <>
-            <h2 className="food-item-name">Items of {categoryName}</h2>
+            <h2 className="food-item-name">Items of {category_name}</h2>
             <Grid spacing={2} container>
               {foods.map((food) => (
                 <Grid item xs={10} sm={6} md={4} lg={3}>
                   <Card style={{ borderRadius: "1em" }} className="food-item">
-                    <div className="food-item-image-container">
-                      <img
-                        className="food-item-image"
-                        alt="food-item-image"
-                        src={food.image}
-                      />
-                    </div>
-
+                    <CardMedia className="food-list-image" image={food.image} />
                     <CardContent
                       component={Link}
                       to={`/food-description/${food._id}`}
@@ -63,15 +59,18 @@ function FoodList() {
                       </Typography>
                     </CardContent>
 
-                    {state.user && state.token && (
-                      <CardActions className="food-item-actions">
-                        <Tooltip title="Add to Order Cart!">
-                          <IconButton onClick={() => add_to_cart(food)}>
-                            <Add />
-                          </IconButton>
-                        </Tooltip>
-                      </CardActions>
-                    )}
+                    <div className="food-list-item-footer">
+                      <Typography variant="body1">{food.price}৳</Typography>
+                      {state.user && state.token && (
+                        <CardActions className="food-item-actions">
+                          <Tooltip title="Add to Order Cart!">
+                            <IconButton onClick={() => add_to_cart(food)}>
+                              <Add />
+                            </IconButton>
+                          </Tooltip>
+                        </CardActions>
+                      )}
+                    </div>
                   </Card>
                 </Grid>
               ))}
