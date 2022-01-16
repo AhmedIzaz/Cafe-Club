@@ -41,7 +41,7 @@ export const Reducer = (state, action) => {
     case "ADD_TO_CARTS":
       return {
         ...state,
-        carts: [...state.carts, action.food],
+        carts: [action.cart, ...state.carts],
       };
     case "CHANGE_CART_QUANTITY":
       return {
@@ -51,7 +51,7 @@ export const Reducer = (state, action) => {
     case "REMOVE_FROM_CARTS":
       return {
         ...state,
-        carts: [...state.carts.filter((cart) => cart._id != action.cart_id)],
+        carts: action.carts,
       };
     case "DELETE_CARTS":
       return {

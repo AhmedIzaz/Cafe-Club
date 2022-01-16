@@ -88,7 +88,7 @@ const Navigation = () => {
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link className="box-menu-item" to="/">
                   Home
-                </Link>{" "}
+                </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link className="box-menu-item" to="/categories">

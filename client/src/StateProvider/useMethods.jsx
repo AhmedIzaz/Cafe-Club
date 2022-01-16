@@ -15,7 +15,7 @@ function useMethods() {
       .post(`${auth_base_url}/login`, { email, password })
       .then((response) => {
         if (!response.data.user || !response.data.token)
-          return alert(response.data?.message || response.data?.error);
+          return alert("Password doesn't match!");
         const { user, token, carts, orders } = response.data;
         dispatch({ type: "ADD_USER", user });
         dispatch({ type: "ADD_TOKEN", token });
@@ -25,8 +25,8 @@ function useMethods() {
         sessionStorage.setItem("token", token);
         return navigate("/");
       })
-      .catch((error) => {
-        return alert(error);
+      .catch(() => {
+        return alert("Password doesn't match!");
       });
   };
   ////======================================
@@ -46,7 +46,8 @@ function useMethods() {
   ////======================================
   const logout = () => {
     dispatch({ type: "DELETE_EVERYTHING" });
-    return sessionStorage.clear();
+    sessionStorage.clear();
+    return navigate("/");
   };
   ////======================================
   ////======================================
@@ -80,40 +81,39 @@ function useMethods() {
   };
   ////======================================
   ////======================================
-  const add_to_cart = (food) => {
-    if (state.carts.filter((cart) => cart._id == food._id).length > 0)
-      return alert("Food is already exist in your food cart!");
-    axios
-      .post(`${cart_base_url}/create-cart`, {
-        food_id: food._id,
-        token: state.token,
-      })
-      .then((response) => {
-        if (!response.data.added)
-          return alert("can't add to cart! please try again letter!");
-        dispatch({ type: "ADD_TO_CARTS", food: response.data.cart });
-        return;
-      })
-      .catch((error) => alert(error.message));
+  const add_to_cart = async (food_id) => {
+    const cart_exist = state.carts.filter((cart) => cart.food_id == food_id);
+    if (cart_exist.length > 0) return alert("cart already added!");
+    const { data } = await axios.post(`${cart_base_url}/create-cart`, {
+      food_id,
+      token: state.token,
+    });
+    if (!data.cart) return alert("can't add to cart! please try again letter!");
+    dispatch({ type: "ADD_TO_CARTS", cart: data.cart });
+    return;
   };
   ////======================================
   ////======================================
-  const change_quantity = (value, cart) => {
+  const change_quantity = (value, cart, index) => {
+    if (value < 1) return;
+    const carts = state.carts;
     axios
       .post(`${cart_base_url}/change-quantity`, {
         value,
         cart_id: cart._id,
         token: state.token,
       })
-      .then((response) => {
-        if (response.status !== 200)
+      .then(({ data }) => {
+        if (!data.cart_updated)
           return alert("Cart quantity doesn't update!Please try again!");
-        const index = state.carts.indexOf(cart);
-        let carts = state.carts;
-        carts[index] = response.data.updated_cart;
-        return dispatch({ type: "CHANGE_CART_QUANTITY", carts });
+        carts[index].quantity = value;
+        dispatch({
+          type: "CHANGE_CART_QUANTITY",
+          carts,
+        });
+        return;
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert(error));
   };
   ////======================================
   ////======================================
@@ -121,9 +121,10 @@ function useMethods() {
     axios
       .post(`${cart_base_url}/remove-cart`, { cart_id, token: state.token })
       .then((response) => {
-        if (response.status == 200)
+        if (response.status !== 200)
           return alert("Cart  doesn't deleted ! Please try again!");
-        return dispatch({ type: "REMOVE_FROM_CARTS", cart_id });
+        const carts = state.carts.filter((cart) => cart._id != cart_id);
+        return dispatch({ type: "REMOVE_FROM_CARTS", carts });
       })
       .catch((error) => alert(error.message));
   };
@@ -140,6 +141,15 @@ function useMethods() {
       })
       .catch();
   };
+  ////======================================
+  ////======================================
+
+  const confirm_order = (dateTime) => {
+    console.log(dateTime);
+  };
+
+  ////======================================
+  ////======================================
   return {
     get_carts_and_orders,
     get_category_list,
@@ -150,6 +160,7 @@ function useMethods() {
     change_quantity,
     remove_cart,
     delete_user_carts,
+    confirm_order,
   };
 }
 

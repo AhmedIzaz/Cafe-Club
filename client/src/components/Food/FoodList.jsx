@@ -64,7 +64,7 @@ function FoodList() {
                       {state.user && state.token && (
                         <CardActions className="food-item-actions">
                           <Tooltip title="Add to Order Cart!">
-                            <IconButton onClick={() => add_to_cart(food)}>
+                            <IconButton onClick={() => add_to_cart(food._id)}>
                               <Add />
                             </IconButton>
                           </Tooltip>

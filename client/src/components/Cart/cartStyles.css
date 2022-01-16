@@ -38,3 +38,18 @@
   width: 1.5em;
   height: 1.5em;
 }
+
+.cart-page-footer {
+  padding-top: 2em;
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 850px) {
+  .cart-page-footer {
+    padding-top: 1.5em;
+    width: 80%;
+  }
+}

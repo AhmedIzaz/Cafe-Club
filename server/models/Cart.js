@@ -18,6 +18,10 @@ const cartSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    price: {
+      type: String,
+      required: true,
+    },
     quantity: {
       type: Number,
       default: 1,

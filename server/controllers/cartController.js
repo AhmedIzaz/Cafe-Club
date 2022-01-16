@@ -4,14 +4,15 @@ import Food from "../models/Food.js";
 export const create_cart = async (req, res, next) => {
   try {
     const { food_id } = req.body;
-    const { name, image } = await Food.findOne({ _id: food_id });
+    const { name, image, price } = await Food.findOne({ _id: food_id });
     const cart = await Cart.create({
       food_id,
       name,
       image,
       user_id: req.user_id,
+      price,
     });
-    return res.status(200).json({ added: true, cart }).end();
+    return res.status(200).json({ cart }).end();
   } catch (error) {
     return res.status(404).json({ error: error.message }).end();
   }
@@ -20,11 +21,8 @@ export const create_cart = async (req, res, next) => {
 export const change_quantity = async (req, res, next) => {
   try {
     const { value, cart_id } = req.body;
-    const updated_cart = await Cart.findOneAndUpdate(
-      { _id: cart_id },
-      { quantity: value }
-    );
-    return res.status(200).json({ updated_cart }).end();
+    await Cart.findOneAndUpdate({ _id: cart_id }, { quantity: value });
+    return res.status(200).json({ cart_updated: true }).end();
   } catch (error) {
     return res.status(404).json({ error: error.message }).end();
   }
