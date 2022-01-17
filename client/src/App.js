@@ -14,6 +14,7 @@ import Signup from "./components/Auth/Signup";
 import Cart from "./components/Cart/Cart";
 import useMethods from "./StateProvider/useMethods";
 import Order from "./components/Order/Order";
+import OrderList from "./components/Order/Order-List/OrderList";
 function App() {
   const [state, dispatch] = useStateValue();
   const { get_category_list, get_carts_and_orders } = useMethods();
@@ -52,6 +53,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/create-order" element={<Order />} />
+          <Route path="/order-list" element={<OrderList />} />
         </Routes>
       </div>
       <Footer />

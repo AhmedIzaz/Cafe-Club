@@ -6,6 +6,7 @@ function useMethods() {
   const auth_base_url = "http://localhost:8000/auth";
   const cart_base_url = "http://localhost:8000/cart";
   const category_base_url = "http://localhost:8000/category";
+  const order_base_url = "http://localhost:8000/order";
   const [state, dispatch] = useStateValue();
   const navigate = useNavigate();
   ////======================================
@@ -16,11 +17,11 @@ function useMethods() {
       .then((response) => {
         if (!response.data.user || !response.data.token)
           return alert("Password doesn't match!");
-        const { user, token, carts, orders } = response.data;
+        const { user, token, carts, order } = response.data;
         dispatch({ type: "ADD_USER", user });
         dispatch({ type: "ADD_TOKEN", token });
         dispatch({ type: "ADD_CARTS", carts });
-        dispatch({ type: "ADD_ORDERS", orders });
+        dispatch({ type: "ADD_ORDER", order });
         sessionStorage.setItem("user", JSON.stringify(user));
         sessionStorage.setItem("token", token);
         return navigate("/");
@@ -35,10 +36,10 @@ function useMethods() {
     axios
       .post(`${auth_base_url}/signup`, { ...data })
       .then((response) => {
-        if (response.data.status !== 200)
+        if (response.status !== 200)
           return alert(response.data?.message || response.data?.error);
-        alert(response.data.message);
-        return navigate("/login");
+        navigate("/login");
+        return;
       })
       .catch((error) => alert(error));
   };
@@ -74,7 +75,7 @@ function useMethods() {
         dispatch({ type: "ADD_TOKEN", token });
         dispatch({ type: "ADD_USER", user: JSON.parse(user) });
         dispatch({ type: "ADD_CARTS", carts: response.data.carts });
-        dispatch({ type: "ADD_ORDERS", orders: response.data.orders });
+        dispatch({ type: "ADD_ORDER", order: response.data.order });
         return navigate(-1);
       })
       .catch((error) => alert(error));
@@ -82,6 +83,10 @@ function useMethods() {
   ////======================================
   ////======================================
   const add_to_cart = async (food_id) => {
+    if (state.order)
+      return alert(
+        `You have a order to ${state.order.type} first.Please try again letter!`
+      );
     const cart_exist = state.carts.filter((cart) => cart.food_id == food_id);
     if (cart_exist.length > 0) return alert("cart already added!");
     const { data } = await axios.post(`${cart_base_url}/create-cart`, {
@@ -144,10 +149,27 @@ function useMethods() {
   ////======================================
   ////======================================
 
-  const confirm_order = (dateTime) => {
-    console.log(dateTime);
-  };
+  const confirm_order = (date_time, type, price) => {
+    if (!date_time) return alert("Please give date and time");
 
+    axios
+      .post(`${order_base_url}/create-order`, {
+        carts: state.carts,
+        date_time,
+        type,
+        price,
+        token: state.token,
+        user_name: state.user.name,
+      })
+      .then((response) => {
+        if (response.status != 200)
+          return alert("cant create order.Please try again letter!");
+        dispatch({ type: "ADD_ORDER", order: response.data.order });
+        dispatch({ type: "DELETE_CARTS" });
+        return navigate("/");
+      })
+      .catch((error) => alert(error));
+  };
   ////======================================
   ////======================================
   return {

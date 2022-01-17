@@ -1,0 +1,23 @@
+.order-list-page-container {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  background-color: rgb(242, 242, 242);
+  border-radius: 0.5em;
+  box-shadow: 0.1em 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.535);
+  padding: 1.5em 0;
+}
+
+.order-list-wrapper {
+  margin: auto;
+  width: 80%;
+}
+
+@media screen and (max-width: 700px) {
+  .order-list-page-container {
+    width: 85%;
+  }
+  .order-list-wrapper {
+    width: 90%;
+  }
+}

@@ -17,7 +17,8 @@
   margin: 1em 0;
 }
 
-.order-date-container {
+.order-date-container,
+.order-type-container {
   margin: 1em 0;
   display: flex;
   justify-content: space-evenly;

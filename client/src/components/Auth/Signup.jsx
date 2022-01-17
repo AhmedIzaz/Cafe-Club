@@ -9,7 +9,7 @@ import "./authStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
 import useMethods from "../../StateProvider/useMethods";
 const schema = Yup.object({
-  username: Yup.string().min(3).max(20).required(),
+  name: Yup.string().min(3).max(20).required(),
   email: Yup.string().email().required(),
   number: Yup.string().min(5).max(15).required(),
   password: Yup.string().min(8).max(32).required(),
@@ -47,7 +47,7 @@ function Signup() {
           </Typography>
           <Controller
             control={control}
-            name="username"
+            name="name"
             render={({ field }) => (
               <TextField
                 {...field}
@@ -60,7 +60,7 @@ function Signup() {
           />
 
           <Typography gutterBottom variant="body2" color="secondary">
-            {errors.username?.message}
+            {errors.name?.message}
           </Typography>
           <Controller
             control={control}
@@ -138,7 +138,7 @@ function Signup() {
           </Typography>
           <div className="form-footer">
             <Button variant="contained" color="primary" type="submit">
-              Login
+              Signup
             </Button>
             <Tooltip title="Click for login">
               <Typography

@@ -130,7 +130,7 @@ const Navigation = () => {
           <Box
             style={{
               paddingRight: "10em",
-              width: "30em",
+              width: "40em",
               marginTop: "2em",
             }}
             sx={{
@@ -162,7 +162,7 @@ const Navigation = () => {
               </Link>
             )}
 
-            {state.user && state.token && (
+            {state.user && !state.order && location.pathname !== "/cart" && (
               <Tooltip title="Click to see your food cart">
                 <IconButton
                   style={{ width: "1em", height: "1.5em" }}
@@ -177,6 +177,13 @@ const Navigation = () => {
                     <LocalDiningOutlined style={{ color: "white" }} />
                   </Badge>
                 </IconButton>
+              </Tooltip>
+            )}
+            {state.user && state.order && location.pathname !== "/order-list" && (
+              <Tooltip title="Check your order list">
+                <Link className="nav-link" to="/order-list">
+                  Orders
+                </Link>
               </Tooltip>
             )}
           </Box>

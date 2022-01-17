@@ -1,19 +1,24 @@
 import mongoose from "mongoose";
+import { cartSchema } from "./Cart.js";
 
 const orderSchema = mongoose.Schema(
   {
-    food_id_list: [String],
-    order_type: {
+    food_list: [cartSchema],
+    type: {
       type: String,
       required: true,
     },
-    date: {
-      type: String,
+    price: {
+      type: Number,
       required: true,
     },
+    date_time: [String],
     user_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      required: true,
+    },
+    user_name: {
+      type: String,
       required: true,
     },
   },

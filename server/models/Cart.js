@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const cartSchema = mongoose.Schema(
+export const cartSchema = mongoose.Schema(
   {
     food_id: {
       type: String,

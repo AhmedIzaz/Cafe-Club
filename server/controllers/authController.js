@@ -43,8 +43,8 @@ export const login = async (req, res, next) => {
       expiresIn: "1d",
     });
     const carts = await Cart.find({ user_id: user._id });
-    const orders = await Order.find({ user_id: user._id });
-    return res.json({ user, token, carts, orders }).end();
+    const order = await Order.findOne({ user_id: user._id });
+    return res.json({ user, token, carts, order }).end();
   } catch (error) {
     return res.json({ error: error.message });
   }
@@ -53,8 +53,8 @@ export const login = async (req, res, next) => {
 export const get_carts_and_orders = async (req, res, next) => {
   try {
     const carts = await Cart.find({ user_id: req.user_id });
-    const orders = await Order.find({ user_id: req.user_id });
-    return res.status(200).json({ carts, orders }).end();
+    const order = await Order.findOne({ user_id: req.user_id });
+    return res.status(200).json({ carts, order }).end();
   } catch (error) {
     return res.status(404).json({ error: error.message }).end();
   }

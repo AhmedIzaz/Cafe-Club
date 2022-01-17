@@ -9,13 +9,15 @@ function Order() {
   const [state] = useStateValue();
   const { confirm_order } = useMethods();
   const [dateTime, setDateTime] = useState(null);
+  const [type, setType] = useState("Reservation");
   const navigate = useNavigate();
   let total_price = 0;
   const onDateTimeChange = (e) => {
     const date_and_time = e.target.value.split("T");
-    setDateTime({ date: date_and_time[0], time: date_and_time[1] });
+    setDateTime([date_and_time[0], date_and_time[1]]);
     console.log(dateTime);
   };
+  const change_type = (e) => setType(e.target.value);
 
   useEffect(() => {
     if (!state.user && state.carts.length < 1) return navigate("/");
@@ -68,16 +70,23 @@ function Order() {
           </Typography>
           <input onChange={(e) => onDateTimeChange(e)} type="datetime-local" />
         </div>
+        <div className="order-type-container">
+          <Typography variant="caption">Order Type : </Typography>
+          <select onChange={change_type}>
+            <option>Delivery</option>
+            <option selected>reservation</option>
+          </select>
+        </div>
         <div className="order-page-footer">
           <Typography align="center" variant="h6" color="textSecondary">
             Total amount is : {total_price}
           </Typography>
           <Button
-            onClick={() => confirm_order(dateTime)}
+            onClick={() => confirm_order(dateTime, type, total_price)}
             variant="contained"
             color="primary"
           >
-            Confirm Order!
+            Confirm {type}!
           </Button>
         </div>
       </div>

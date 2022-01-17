@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       minLength: 4,
-      required: false,
+      required: true,
     },
     email: {
       type: String,
@@ -25,8 +25,6 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
     },
-    carts: [{ type: mongoose.Types.ObjectId, ref: "cart", required: false }],
-    orders: [{ type: mongoose.Types.ObjectId, ref: "order", required: false }],
   },
   { timestamps: false }
 );
