@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Button, TextField, Tooltip, Typography } from "@material-ui/core";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./authStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
 import useMethods from "../../StateProvider/useMethods";
@@ -17,17 +17,19 @@ function Login() {
   const [state] = useStateValue();
   const navigate = useNavigate();
   const { login } = useMethods();
+  const location = useLocation();
   const {
     formState: { errors },
     control,
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema) });
-  const onFormSubmit = (data) => login(data);
+  const onFormSubmit = (data) => login(data, location.pathname);
 
   // =====================================
   // =====================================
   useEffect(() => {
-    if (state.token && state.user) return navigate("/");
+    if (state.token)
+      return navigate(`${state.user ? "/" : "/owner-dashboard"}`);
   }, []);
   // =====================================
   // =====================================
@@ -40,7 +42,7 @@ function Login() {
       <div className="form-container">
         <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
           <Typography gutterBottom variant="h3">
-            Login
+            {location.pathname == "/owner-login" && "Owner"} Login
           </Typography>
           <Controller
             control={control}
@@ -83,16 +85,38 @@ function Login() {
             <Button variant="contained" color="primary" type="submit">
               Login
             </Button>
-            <Tooltip title="Click for signup">
+            {location.pathname !== "/owner-login" && (
+              <>
+                <Tooltip title="Click for signup">
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component={Link}
+                    to="/signup"
+                  >
+                    Don't have an account?
+                  </Typography>
+                </Tooltip>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  component={Link}
+                  to="/owner-login"
+                >
+                  Login as Owner
+                </Typography>
+              </>
+            )}
+            {location.pathname == "/owner-login" && (
               <Typography
                 variant="body2"
                 color="textSecondary"
                 component={Link}
-                to="/signup"
+                to="/login"
               >
-                Don't have an account?
+                Login as Customer
               </Typography>
-            </Tooltip>
+            )}
           </div>
         </form>
       </div>

@@ -8,6 +8,7 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    address: String,
     price: {
       type: Number,
       required: true,
@@ -18,6 +19,10 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     user_name: {
+      type: String,
+      required: true,
+    },
+    user_number: {
       type: String,
       required: true,
     },

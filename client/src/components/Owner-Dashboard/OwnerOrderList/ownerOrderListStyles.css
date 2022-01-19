@@ -1,0 +1,59 @@
+.owner-page-order-list {
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .owner-page-order-list {
+    width: 95%;
+    font-size: 0.6rem;
+  }
+}
+
+.owner-page-order-item-container {
+  margin: 1.5em 0;
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0.1em 0.1em 0.3em 0.05em rgba(0, 0, 0, 0.289);
+  border-radius: 0.5em;
+}
+
+.owner-page-order-item-container:hover {
+  transform: translate(0, -0.5em);
+  transition: 0.5s;
+}
+
+.owner-page-order-item-container > .order-item-header {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1em 0;
+}
+
+.owner-page-order-item-food-container {
+  width: 95%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  .owner-page-order-item-food-container > button {
+    width: 10em;
+    font-size: 0.6rem;
+  }
+}
+
+.owner-page-order-item {
+  flex-basis: 50%;
+}
+
+.owner-page-order-item > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

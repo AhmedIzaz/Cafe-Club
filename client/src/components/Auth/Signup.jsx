@@ -29,7 +29,7 @@ function Signup() {
   // ================================
 
   useEffect(() => {
-    if (state.token && state.user) return navigate("/");
+    if (state.token) return navigate("/");
   }, []);
   // ================================
   // ================================

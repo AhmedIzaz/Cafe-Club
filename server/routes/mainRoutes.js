@@ -3,7 +3,6 @@ import food_routes from "./foodRoutes.js";
 import authRoutes from "./authRoutes.js";
 import cartRoute from "./cartRoute.js";
 import orderRoute from "./orderRoute.js";
-import parentRoute from "./parentRoute.js";
 import ownerRoute from "./ownerRoute.js";
 const routers = [
   {
@@ -30,10 +29,6 @@ const routers = [
   {
     path: "/order",
     handler: orderRoute,
-  },
-  {
-    path: "/parent",
-    handler: parentRoute,
   },
 ];
 

@@ -23,7 +23,7 @@ export const signup = async (req, res, next) => {
       .json({ message: "User created Successfully!" })
       .end();
   } catch (error) {
-    return res.json({ error: error.message });
+    return res.status(404).json({ error: error.message }).end();
   }
 };
 
@@ -44,9 +44,9 @@ export const login = async (req, res, next) => {
     });
     const carts = await Cart.find({ user_id: user._id });
     const order = await Order.findOne({ user_id: user._id });
-    return res.json({ user, token, carts, order }).end();
+    return res.status(200).json({ user, token, carts, order }).end();
   } catch (error) {
-    return res.json({ error: error.message });
+    return res.status(404).json({ error: error.message }).end();
   }
 };
 

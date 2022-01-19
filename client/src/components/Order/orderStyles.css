@@ -18,11 +18,18 @@
 }
 
 .order-date-container,
-.order-type-container {
+.order-type-container,
+.order-number-container,
+.delivery-type-container {
   margin: 1em 0;
+  padding: 0 1em;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.field-label {
+  flex-basis: 50%;
 }
 
 .order-page-footer {

@@ -1,4 +1,12 @@
-import { Button, Typography } from "@material-ui/core";
+import {
+  Button,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+  FormControl,
+  InputLabel,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../StateProvider/StateContext";
@@ -9,16 +17,29 @@ function Order() {
   const [state] = useStateValue();
   const { confirm_order } = useMethods();
   const [dateTime, setDateTime] = useState(null);
+  const [number, setNumber] = useState(null);
   const [type, setType] = useState("Reservation");
+  const [address, setAddress] = useState(null);
   const navigate = useNavigate();
   let total_price = 0;
   const onDateTimeChange = (e) => {
     const date_and_time = e.target.value.split("T");
     setDateTime([date_and_time[0], date_and_time[1]]);
-    console.log(dateTime);
   };
-  const change_type = (e) => setType(e.target.value);
+  const change_type = (e) => {
+    setType(e.target.value);
+  };
+  const onAddressChange = (e) => setAddress(e.target.value);
+  const onNumberChange = (e) => setNumber(e.target.value);
+  const onOrderSubmit = (e) => {
+    e.preventDefault();
 
+    if (type == "Delivery" && !address)
+      return alert("please give the location!");
+    if (!number || number.length < 10 || !dateTime)
+      return alert("please type a valid mobile number!");
+    confirm_order(dateTime, type, total_price, number, address);
+  };
   useEffect(() => {
     if (!state.user && state.carts.length < 1) return navigate("/");
   }, []);
@@ -65,27 +86,63 @@ function Order() {
           </tbody>
         </table>
         <div className="order-date-container">
-          <Typography variant="caption">
+          <Typography className="field-label" variant="caption">
             Give a delivery or order date :
           </Typography>
-          <input onChange={(e) => onDateTimeChange(e)} type="datetime-local" />
+          <TextField
+            size="small"
+            variant="outlined"
+            type="datetime-local"
+            onChange={(e) => onDateTimeChange(e)}
+          />
         </div>
         <div className="order-type-container">
-          <Typography variant="caption">Order Type : </Typography>
-          <select onChange={change_type}>
-            <option>Delivery</option>
-            <option selected>reservation</option>
-          </select>
+          <Typography variant="caption" className="field-label">
+            Order Type :{" "}
+          </Typography>
+          <FormControl>
+            <InputLabel>Order Type</InputLabel>
+            <Select
+              variant="standard"
+              value={type}
+              label="Type"
+              onChange={change_type}
+            >
+              <MenuItem value={"Reservation"}>Reservation</MenuItem>
+              <MenuItem value={"Delivery"}>Delivery</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        {type == "Delivery" && (
+          <div className="delivery-type-container">
+            <Typography variant="caption" className="field-label">
+              Give address please! (only inside of Feni Town) :
+            </Typography>
+            <TextField
+              label="Address"
+              variant="outlined"
+              size="small"
+              onChange={onAddressChange}
+            />
+          </div>
+        )}
+        <div className="order-number-container">
+          <Typography className="field-label" variant="caption">
+            Mobile Number :
+          </Typography>
+          <TextField
+            label="Number"
+            size="small"
+            type="text"
+            onChange={onNumberChange}
+            variant="outlined"
+          />
         </div>
         <div className="order-page-footer">
           <Typography align="center" variant="h6" color="textSecondary">
             Total amount is : {total_price}
           </Typography>
-          <Button
-            onClick={() => confirm_order(dateTime, type, total_price)}
-            variant="contained"
-            color="primary"
-          >
+          <Button onClick={onOrderSubmit} variant="contained" color="primary">
             Confirm {type}!
           </Button>
         </div>

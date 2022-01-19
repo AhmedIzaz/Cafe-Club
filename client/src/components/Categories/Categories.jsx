@@ -2,7 +2,6 @@ import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import React from "react";
 import { useStateValue } from "../../StateProvider/StateContext";
 import { Link, useLocation } from "react-router-dom";
-import categories from "../../demodata/democategories";
 import Navigation from "../Navigation/Navigation";
 import "./styles.css";
 function Categories() {

@@ -1,0 +1,51 @@
+.dashboard-header {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 0.3em 0.1em rgba(0, 0, 0, 0.453);
+  border-radius: 0.5em;
+  padding: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard-header {
+    font-size: 0.6rem;
+  }
+}
+
+.dashboard-header > a {
+  text-decoration: none;
+  color: black;
+}
+
+.dashboard-header > a::after {
+  content: "";
+  width: 0;
+  height: 0.2em;
+  display: block;
+  margin: auto;
+  background-color: brown;
+  transition: 0.5s;
+}
+
+.dashboard-header > a:hover::after {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard-header > button {
+    width: 6em;
+    font-size: 0.6rem;
+  }
+}
+
+.dashboard-logo-container {
+  max-width: 80px;
+}
+
+.dashboard-logo {
+  width: 100%;
+  border-radius: 0.5em;
+}

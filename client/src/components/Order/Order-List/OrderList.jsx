@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./orderListStyles.css";
 import Navigation from "../../Navigation/Navigation";
 import { Typography } from "@material-ui/core";
 import { useStateValue } from "../../../StateProvider/StateContext";
+import { useNavigate } from "react-router-dom";
 
 function OrderList() {
   const [state] = useStateValue();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!state.user) return navigate("/");
+  }, []);
   return (
     <>
       <Navigation />

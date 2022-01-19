@@ -13,12 +13,7 @@ import {
   Badge,
   Tooltip,
 } from "@material-ui/core";
-import {
-  EmojiFoodBeverage,
-  LocalDiningOutlined,
-  Menu as MenuIcon,
-  ShoppingCart,
-} from "@material-ui/icons";
+import { LocalDiningOutlined, Menu as MenuIcon } from "@material-ui/icons";
 import { Link, useLocation } from "react-router-dom";
 import "./navigationStyles.css";
 import { useStateValue } from "../../StateProvider/StateContext";
@@ -85,23 +80,41 @@ const Navigation = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
+              {!state.owner && (
+                <>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link className="box-menu-item" to="/">
+                      Home
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link className="box-menu-item" to="/categories">
+                      Categories
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link className="box-menu-item" to="/about">
+                      About
+                    </Link>
+                  </MenuItem>
+                </>
+              )}
+              {state.owner && (
+                <>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link className="box-menu-item" to="/owner-dashboard">
+                      Dashboard
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link className="box-menu-item" to="/customer-list">
+                      Customers
+                    </Link>
+                  </MenuItem>
+                </>
+              )}
               <MenuItem onClick={handleCloseNavMenu}>
-                <Link className="box-menu-item" to="/">
-                  Home
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link className="box-menu-item" to="/categories">
-                  Categories
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link className="box-menu-item" to="/about">
-                  About
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                {state.user && state.token ? (
+                {state.token ? (
                   <Typography
                     variant="body1"
                     className="box-menu-item"
@@ -116,12 +129,20 @@ const Navigation = () => {
                   </Link>
                 )}
               </MenuItem>
-              {state.user && state.token && (
+              {state.user && state.token && !state.order && (
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Link className="box-menu-item" to="/cart">
                     <Badge badgeContent={state.carts.length} color="secondary">
                       Food Carts
                     </Badge>
+                  </Link>
+                </MenuItem>
+              )}
+
+              {state.user && state.order && (
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link className="box-menu-item" to="/order-list">
+                    Orders
                   </Link>
                 </MenuItem>
               )}
@@ -138,16 +159,30 @@ const Navigation = () => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            <Link className="nav-link" to="/">
-              Home
-            </Link>
-            <Link className="nav-link" to="/categories">
-              Categories
-            </Link>
-            <Link className="nav-link" to="/about">
-              About
-            </Link>
-            {state.user && state.token ? (
+            {!state.owner && (
+              <>
+                <Link className="nav-link" to="/">
+                  Home
+                </Link>
+                <Link className="nav-link" to="/categories">
+                  Categories
+                </Link>
+                <Link className="nav-link" to="/about">
+                  About
+                </Link>
+              </>
+            )}
+            {state.owner && (
+              <>
+                <Link className="nav-link" to="/owner-dashboard">
+                  Dashboard
+                </Link>
+                <Link className="nav-link" to="/customer-list">
+                  Customers
+                </Link>
+              </>
+            )}
+            {state.token ? (
               <Typography
                 variant="body1"
                 className="nav-link"

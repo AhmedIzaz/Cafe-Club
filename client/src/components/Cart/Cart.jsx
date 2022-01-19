@@ -8,7 +8,6 @@ import {
 import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import demofood from "../../demodata/demofood";
 import { useStateValue } from "../../StateProvider/StateContext";
 import useMethods from "../../StateProvider/useMethods";
 import Navigation from "../Navigation/Navigation";

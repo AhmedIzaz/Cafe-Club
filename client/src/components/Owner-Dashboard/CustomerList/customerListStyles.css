@@ -1,0 +1,27 @@
+.customer-list-page {
+  width: 80%;
+  margin: auto;
+  box-shadow: 0.1em 0.1em 0.3em 0.05em rgba(0, 0, 0, 0.289);
+  padding: 1em;
+}
+
+.customer-list-page > .customer {
+  padding: 1em 0;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.customer-list-page > .customer:hover {
+  box-shadow: 0.1em 0.1em 0.3em 0.05em rgba(0, 0, 0, 0.289);
+  transform: translate(0, -0.5em);
+  transition: 0.5s;
+}
+
+@media screen and (max-width: 720px) {
+  .customer-list-page > .customer {
+    width: 80%;
+  }
+}

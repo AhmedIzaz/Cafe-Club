@@ -4,6 +4,7 @@ export const InitialState = {
   token: null,
   carts: [],
   order: null,
+  owner: null,
 };
 
 export const Reducer = (state, action) => {
@@ -75,6 +76,27 @@ export const Reducer = (state, action) => {
         token: null,
         carts: [],
         order: null,
+        owner: null,
+      };
+
+    case "ADD_OWNER":
+      return {
+        ...state,
+        owner: action.owner,
+      };
+    case "REMOVE_OWNER":
+      return {
+        ...state,
+        owner: null,
+        owner_token: null,
+      };
+    case "DELETE_ORDER_FROM_OWNER":
+      return {
+        ...state,
+        owner: {
+          ...state.owner,
+          orders: action.orders,
+        },
       };
     default:
       return state;

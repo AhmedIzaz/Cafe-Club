@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useStateValue } from "./StateContext";
 
 function useMethods() {
+  const owner_base_url = "http://localhost:8000/owner";
   const auth_base_url = "http://localhost:8000/auth";
   const cart_base_url = "http://localhost:8000/cart";
   const category_base_url = "http://localhost:8000/category";
@@ -11,23 +12,37 @@ function useMethods() {
   const navigate = useNavigate();
   ////======================================
   ////======================================
-  const login = ({ email, password }) => {
+  const login = (data, pathname) => {
+    const { email, password } = data;
     axios
-      .post(`${auth_base_url}/login`, { email, password })
+      .post(
+        pathname == "/login"
+          ? `${auth_base_url}/login`
+          : `${owner_base_url}/owner-login`,
+        { email, password }
+      )
       .then((response) => {
-        if (!response.data.user || !response.data.token)
-          return alert("Password doesn't match!");
-        const { user, token, carts, order } = response.data;
-        dispatch({ type: "ADD_USER", user });
-        dispatch({ type: "ADD_TOKEN", token });
-        dispatch({ type: "ADD_CARTS", carts });
-        dispatch({ type: "ADD_ORDER", order });
-        sessionStorage.setItem("user", JSON.stringify(user));
-        sessionStorage.setItem("token", token);
-        return navigate("/");
+        if (!response.data.token) return alert("Password doesn't match!");
+        if (pathname == "/login") {
+          const { user, token, carts, order } = response.data;
+          dispatch({ type: "ADD_USER", user });
+          dispatch({ type: "ADD_TOKEN", token });
+          dispatch({ type: "ADD_CARTS", carts });
+          dispatch({ type: "ADD_ORDER", order });
+          sessionStorage.setItem("user", JSON.stringify(user));
+          sessionStorage.setItem("token", token);
+          return navigate("/");
+        } else {
+          const { token, owner, orders } = response.data;
+          dispatch({ type: "ADD_OWNER", owner: { ...owner, orders } });
+          dispatch({ type: "ADD_TOKEN", token });
+          sessionStorage.setItem("owner", JSON.stringify({ ...owner, orders }));
+          sessionStorage.setItem("token", token);
+          return navigate("/owner-dashboard/order-list");
+        }
       })
-      .catch(() => {
-        return alert("Password doesn't match!");
+      .catch((error) => {
+        return alert(error);
       });
   };
   ////======================================
@@ -149,9 +164,8 @@ function useMethods() {
   ////======================================
   ////======================================
 
-  const confirm_order = (date_time, type, price) => {
+  const confirm_order = (date_time, type, price, user_number, address) => {
     if (!date_time) return alert("Please give date and time");
-
     axios
       .post(`${order_base_url}/create-order`, {
         carts: state.carts,
@@ -160,6 +174,8 @@ function useMethods() {
         price,
         token: state.token,
         user_name: state.user.name,
+        user_number,
+        address,
       })
       .then((response) => {
         if (response.status != 200)
@@ -172,6 +188,20 @@ function useMethods() {
   };
   ////======================================
   ////======================================
+  const delete_order = (_id) => {
+    const orders = state.owner.orders.filter((order) => order._id != _id);
+    axios
+      .post(`${owner_base_url}/delete-order`, { _id, token: state.token })
+      .then((response) => {
+        if (response.status !== 200) return alert("Please try again!");
+        dispatch({ type: "DELETE_ORDER_FROM_OWNER", orders });
+        return;
+      })
+      .catch((error) => alert(error));
+  };
+  ////======================================
+  ////======================================
+
   return {
     get_carts_and_orders,
     get_category_list,
@@ -183,6 +213,7 @@ function useMethods() {
     remove_cart,
     delete_user_carts,
     confirm_order,
+    delete_order,
   };
 }
 

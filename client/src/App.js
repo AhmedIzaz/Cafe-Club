@@ -15,19 +15,30 @@ import Cart from "./components/Cart/Cart";
 import useMethods from "./StateProvider/useMethods";
 import Order from "./components/Order/Order";
 import OrderList from "./components/Order/Order-List/OrderList";
+import OwnerDashboard from "./components/Owner-Dashboard/OwnerDashboard";
+import OwnerOrderList from "./components/Owner-Dashboard/OwnerOrderList/OwnerOrderList";
+import CustomerList from "./components/Owner-Dashboard/CustomerList/CustomerList";
 function App() {
   const [state, dispatch] = useStateValue();
   const { get_category_list, get_carts_and_orders } = useMethods();
   // ==========================================
   // ==========================================
   useEffect(() => {
+    console.log("at app");
     get_category_list();
     let token = sessionStorage.getItem("token");
     let user = sessionStorage.getItem("user");
-    if (token && !isExpired(token) && user) {
-      get_carts_and_orders(user, token);
+    let owner = sessionStorage.getItem("owner");
+    if (token && !isExpired(token)) {
+      if (user) {
+        get_carts_and_orders(user, token);
+        return;
+      }
+      dispatch({ type: "ADD_OWNER", owner: JSON.parse(owner) });
+      dispatch({ type: "ADD_TOKEN", token });
       return;
     }
+
     dispatch({ type: "DELETE_EVERYTHING" });
     return sessionStorage.clear();
   }, []);
@@ -50,10 +61,15 @@ function App() {
           />
 
           <Route path="/login" element={<Login />} />
+          <Route path="/owner-login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/create-order" element={<Order />} />
           <Route path="/order-list" element={<OrderList />} />
+          <Route path="/owner-dashboard/*" element={<OwnerDashboard />}>
+            <Route path="order-list" element={<OwnerOrderList />} />
+            <Route path="customer-list" element={<CustomerList />} />
+          </Route>
         </Routes>
       </div>
       <Footer />
